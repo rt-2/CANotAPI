@@ -16,7 +16,7 @@
 	//		$search: String or array of strings of keyword(s) that notam must contain to be shown;
 	//	RETURNS: A string with all relevant notams.
 	//
-	function CANotAPI_GetNotamsString($airport, $search)
+	function CANotAPI_GetNotamsString($airport, $search, $showFooter = true)
 	{
 		//
 		// Variables
@@ -122,7 +122,7 @@
 			}
 		}
 		// Add footer
-		$ret .= '<span class="CANotAPI_Footer"><small>Made possible by <a href="https://github.com/rt-2/CANotAPI">CANotAPI</a> (Canadian Notam API)</small></span><br><br>';
+		if($showFooter) $ret .= '<span class="CANotAPI_Footer"><small>Made possible by <a href="https://github.com/rt-2/CANotAPI">CANotAPI</a> (Canadian Notam API)</small></span><br><br>';
 		// Return string
 		return $ret;
 	}
@@ -135,9 +135,9 @@
 	//		$search: string or array of strings of keyword(s) that notam must contain to be shown;
 	//	RETURNS: should return true;
 	//
-	function CANotAPI_EchoNotamsString($airport, $search)
+	function CANotAPI_EchoNotamsString($airport, $search, $showFooter = true)
 	{
-		echo CANotAPI_GetNotamsString($airport, $search);
+		echo CANotAPI_GetNotamsString($airport, $search, $showFooter);
 		return true;
 	}
 	
