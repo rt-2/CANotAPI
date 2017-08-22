@@ -1,7 +1,7 @@
 <?php
 	//
 	//
-	//	FILE: CANotAPI (Canadian Notams API)
+	//	FILE: CANotAPI (Canadian Notam API)
 	//	BY: rt-2(http://www.rt-2.net)
 	//	PROJECT: https://github.com/rt-2/CANotAPI/
 	//		
@@ -122,7 +122,7 @@
 			}
 		}
 		// Add footer
-		$ret .= '<span class="CANotAPI_Footer"><small>Made possible by CANotAPI (Canadian Notam API)</small></span><br><br>';
+		$ret .= '<span class="CANotAPI_Footer"><small>Made possible by <a href="https://github.com/rt-2/CANotAPI">CANotAPI</a> (Canadian Notam API)</small></span><br><br>';
 		// Return string
 		return $ret;
 	}
