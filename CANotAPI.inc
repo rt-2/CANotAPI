@@ -136,6 +136,8 @@
 	//	ARGUMENTS:
 	//		$airport: string of the canadian airport you want to search notams for;
 	//		$search: string or array of strings of keyword(s) that notam must contain to be shown;
+	//		$showFooter: Boolean default:true, set to false if you want to remove the footer or
+	//			alternatively change its style with class 'CANotAPI_Footer';
 	//	RETURNS: should return true;
 	//
 	function CANotAPI_EchoNotamsString($airport, $search, $showFooter = true)
