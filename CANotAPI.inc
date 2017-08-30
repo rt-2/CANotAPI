@@ -24,6 +24,7 @@
 		// Variables
 		//
 		$ret = '';
+		$airport = strtoupper($airport);
 		
 		//
 		// Access Remote Server
@@ -34,7 +35,7 @@
 			'Langue' => urlencode('anglais'),
 			'TypeBrief' => urlencode('N'),
 			'NoSession' => urlencode(''),
-			'Stations' => urlencode(strtoupper($airport)),
+			'Stations' => urlencode($airport),
 			'Location' => urlencode(''),
 			'ni_File' => urlencode('on'),
 			'ni_Aerodrome' => urlencode('on')
@@ -74,12 +75,12 @@
 		$html = str_replace('UTC time','',$html);
 		$html = str_replace('Log out','',$html);
 		$html = str_replace('Weather data provided by Environment Canada and NAV CANADA','',$html);
-		$html = preg_replace('/(Aerodrome NOTAM file\s+CYUL)/', ' ', $html);
+		$html = preg_replace('/(Aerodrome NOTAM file\s+'.$airport.')/', ' ', $html);
 		// Format the text
 		$formatted_text = preg_replace('/\s+/', ' ', $html);
 		// Seperate into individual notams
-		preg_split('/([0-9]{6} CYUL)/', $formatted_text, -1, PREG_SPLIT_DELIM_CAPTURE);
-		preg_match_all('/([0-9]{6} CYUL)/' , $formatted_text , $all_notams_indexes, PREG_OFFSET_CAPTURE);
+		preg_split('/([0-9]{6} '.$airport.')/', $formatted_text, -1, PREG_SPLIT_DELIM_CAPTURE);
+		preg_match_all('/([0-9]{6} '.$airport.')/' , $formatted_text , $all_notams_indexes, PREG_OFFSET_CAPTURE);
 		
 		//
 		// Show Wanted Notams
@@ -113,7 +114,7 @@
 			}
 			
 			// Eliminate notams from other airports
-			$this_notam_isGoodAirport = preg_match("/(CYUL[\/\-() A-Z0-9,]+CYUL)/",$this_notam_text);
+			$this_notam_isGoodAirport = preg_match('/('.$airport.'[\/\-() A-Z0-9,]+'.$airport.')/', $this_notam_text);
 			if($this_notam_isSearched && $this_notam_isGoodAirport)
 			{
 				if(!$Already_Notam_List[$this_notam_id])
