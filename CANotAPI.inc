@@ -114,7 +114,7 @@
 			}
 			
 			// Eliminate notams from other airports
-			$this_notam_isGoodAirport = preg_match('/('.$airport.'[\/\-() A-Z0-9,]+'.$airport.')/', $this_notam_text);
+			$this_notam_isGoodAirport = preg_match('/('.$airport.'[\/\-() A-Z0-9,.]+'.$airport.')/', $this_notam_text);
 			if($this_notam_isSearched && $this_notam_isGoodAirport)
 			{
 				if(!$Already_Notam_List[$this_notam_id])
