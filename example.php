@@ -13,8 +13,8 @@
 			echo '<h2>Important Notams for CYUL</h2>';
 			
 			// This function echos the html result
-			CANotAPI_EchoNotamsString('cyul', ['CLSD', 'APCH'], false);// only very important stuff
-			//CANotAPI_EchoNotamsString('cyul', ['CLSD', 'rnw', 'twy', 'APCH'], false); // 'extended' important stuff
+			CANotAPI_EchoNotamsString('cyul', ['CLSD', 'NOT AUTH'], false);// only very important stuff
+			//CANotAPI_EchoNotamsString('cyul', ['CLSD', 'NOT AUTH', 'rnw', 'twy'], false); // 'extended' important stuff
 			
 			//
 			//	Show all notams by searching " " (a space).
