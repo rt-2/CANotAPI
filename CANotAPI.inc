@@ -125,7 +125,7 @@
 			}
 		}
 		// Add footer
-		if($showFooter) $ret .= '<span class="CANotAPI_Footer"><small>Made possible by <a href="https://github.com/rt-2/CANotAPI">CANotAPI</a> (Canadian Notam API)</small></span><br><br>';
+		if($showFooter) $ret .= '<span class="CANotAPI_Footer"><small>Made possible by <a href="https://github.com/rt-2/CANotAPI" target="_blank">CANotAPI</a> (Canadian Notam API)</small></span><br><br>';
 		// Return string
 		return $ret;
 	}
