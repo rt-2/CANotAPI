@@ -119,7 +119,7 @@
 			$this_notam_isGoodAirport = preg_match('/('.$airport.'[\/\-() A-Z0-9,.]+'.$airport.')/', $this_notam_text);
 			if($this_notam_isSearched && $this_notam_isGoodAirport)
 			{
-				if(!$Already_Notam_List[$this_notam_id])
+				if(!isset($Already_Notam_List[$this_notam_id]))
 				{
 					$Already_Notam_List[$this_notam_id] = true;
 					$ret .= '<span class="CANotAPI_Notam">'.$this_notam_text.'</span><br><br>';
