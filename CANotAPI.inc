@@ -92,8 +92,8 @@
 		{
 			// Variables
 			$this_index = $all_notams_indexes[0][$key][1];
-			$length = $all_notams_indexes[0][$key+1][1] - $this_index;
-			if($length <= 0) $length = -1;
+			$length = -1;
+			if(isset($all_notams_indexes[0][$key+1])) $length = $all_notams_indexes[0][$key+1][1] - $this_index;
 			$this_notam_id = +substr($formatted_text, $this_index, 6);
 			$this_notam_text = substr($formatted_text, $this_index, $length);
 			
