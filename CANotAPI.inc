@@ -76,6 +76,7 @@
 		$html = str_replace('Your time','',$html);
 		$html = str_replace('UTC time','',$html);
 		$html = str_replace('Log out','',$html);
+		$html = preg_replace('/(Local NOTAM only\s+'.$airport.')/', ' ', $html);
 		$html = str_replace('Weather data provided by Environment Canada and NAV CANADA','',$html);
 		$html = preg_replace('/(Aerodrome NOTAM file\s+'.$airport.')/', ' ', $html);
 		// Format the text
