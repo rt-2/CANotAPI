@@ -41,7 +41,6 @@
 			'ni_Aerodrome' => urlencode('on')
 		);
 		// Url-ify the data for the POST
-		$fields_string = '';
 		foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
 		rtrim($fields_string, '&');
 		// Open curl connection
@@ -58,6 +57,7 @@
 		ob_end_clean();
 		// Close connection
 		curl_close($ch);
+		
 		
 		//
 		// Work the Received data
@@ -90,6 +90,7 @@
 		// Variables
 		$Already_Notam_List = [];
 		// Check every notams
+		
 		foreach($all_notams_indexes[0] as $key => $value)
 		{
 			// Variables
@@ -116,10 +117,10 @@
 			}
 			
 			// Eliminate notams from other airports
-			$this_notam_isGoodAirport = preg_match('/(C[A-Z]{3}[\/\-() A-Z0-9,.]+'.$airport.')/', $this_notam_text);
+			$this_notam_isGoodAirport = preg_match('/(C[A-Z]{3} [\/\-() A-Z0-9,.]+'.$airport.')/', $this_notam_text);
 			if($this_notam_isSearched && $this_notam_isGoodAirport)
 			{
-				if(!isset($Already_Notam_List[$this_notam_id]))
+				if(!$Already_Notam_List[$this_notam_id])
 				{
 					$Already_Notam_List[$this_notam_id] = true;
 					$ret .= '<span class="CANotAPI_Notam">'.$this_notam_text.'</span><br><br>';
