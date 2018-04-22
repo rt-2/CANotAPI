@@ -1,6 +1,21 @@
 <html>
 	<head>
 		<title>CANotAPI Example Page</title>
+		
+	<style>
+		.CANotAPI_Notam_active {
+			background-color: lightgreen;
+		}
+		.CANotAPI_Notam_soonActive {
+			background-color: yellow;
+		}
+		.CANotAPI_Notam_inactive {
+			background-color: red;
+		}
+		.CANotAPI_Notam_timeUndef {
+			background-color: gray;
+		}
+	</style>
 	</head>
 	<body>
 		<?php
