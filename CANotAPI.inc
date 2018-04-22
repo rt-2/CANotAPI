@@ -25,6 +25,11 @@
 		//
 		$ret = '';
 		$airport = strtoupper($airport);
+		$time_format = 'ymdhi';
+		$time_obj = new DateTime("now", new DateTimeZone('UTC'));
+		$time_now = $time_obj->format($time_format);
+		$time_obj->add(new DateInterval('PT6H'));
+		$time_soon = $time_obj->format($time_format);
 		
 		//
 		// Access Remote Server
@@ -118,12 +123,45 @@
 			
 			// Eliminate notams from other airports
 			$this_notam_isGoodAirport = preg_match('/(C[A-Z]{3} [\/\-() A-Z0-9,.]+'.$airport.')/', $this_notam_text);
+			
+			// Check if the Notam is actually for the searched airport
 			if($this_notam_isSearched && $this_notam_isGoodAirport)
 			{
+				// Check if Notam has already been displayed
 				if(!$Already_Notam_List[$this_notam_id])
 				{
+					// Variables
 					$Already_Notam_List[$this_notam_id] = true;
-					$ret .= '<span class="CANotAPI_Notam">'.$this_notam_text.'</span><br><br>';
+					$classes = 'CANotAPI_Notam';
+					preg_match('/[0-9]{10} TIL[ A-Z]+[0-9]{10}/', $this_notam_text, $this_notam_active_text);
+					
+					// Check if Notam contains validity times
+					if(isset( $this_notam_active_text[0] ))
+					{
+						// Variables
+						$this_notam_active_begin = substr($this_notam_active_text[0], 0, 10);
+						$this_notam_active_end = substr($this_notam_active_text[0], -10);
+						
+						// Check if Notam is active, not active, or active soon.
+						if($this_notam_active_begin < $time_now and $time_now < $this_notam_active_end) {
+							// Notam is active
+							$classes .= ' CANotAPI_Notam_active';
+						} elseif ($this_notam_active_begin < $time_soon and $time_soon < $this_notam_active_end) {
+							// Notam is active soon
+							$classes .= ' CANotAPI_Notam_soonActive';
+						} else {
+							// Notam is not active
+							$classes .= ' CANotAPI_Notam_inactive';
+						}
+					}
+					else
+					{
+						// Notam has no time specified
+						$classes .= ' CANotAPI_Notam_timeUndef';
+					}
+					
+					// Add Notam to return string
+					$ret .= '<span class="'.$classes.'">'.$this_notam_text.'</span><br><br>';
 				}
 			}
 		}
