@@ -25,7 +25,7 @@
 		//
 		$ret = '';
 		$airport = strtoupper($airport);
-		$time_format = 'ymdhi';
+		$time_format = 'ymdHi';
 		$time_obj = new DateTime("now", new DateTimeZone('UTC'));
 		$time_now = $time_obj->format($time_format);
 		$time_obj->add(new DateInterval('PT6H'));
