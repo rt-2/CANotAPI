@@ -129,7 +129,7 @@
 			if($this_notam_isSearched && $this_notam_isGoodAirport)
 			{
 				// Check if Notam has already been displayed
-				if(!$Already_Notam_List[$this_notam_id])
+				if(!isset($Already_Notam_List[$this_notam_id]))
 				{
 					// Variables
 					$Already_Notam_List[$this_notam_id] = true;
