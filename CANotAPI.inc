@@ -24,6 +24,7 @@
 		// Variables
 		//
 		$ret = '';
+		$fields_string = '';
 		$airport = strtoupper($airport);
 		$time_format = 'ymdHi';
 		$time_obj = new DateTime("now", new DateTimeZone('UTC'));
