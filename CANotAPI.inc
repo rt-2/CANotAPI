@@ -82,13 +82,13 @@
 		$html = str_replace('Your time','',$html);
 		$html = str_replace('UTC time','',$html);
 		$html = str_replace('Log out','',$html);
-		$html = preg_replace('/(Local NOTAM only\s+C[A-Z]{3})/', ' ', $html);
+		$html = preg_replace('/(Local NOTAM only\s+C[A-Z0-9]{3})/', ' ', $html);
 		$html = str_replace('Weather data provided by Environment Canada and NAV CANADA','',$html);
-		$html = preg_replace('/(Aerodrome NOTAM file\s+C[A-Z]{3})/', ' ', $html);
+		$html = preg_replace('/(Aerodrome NOTAM file\s+C[A-Z0-9]{3})/', ' ', $html);
 		// Format the text
 		$formatted_text = preg_replace('/\s+/', ' ', $html);
 		// Seperate into individual notams
-		preg_match_all('/([0-9]{6} C[A-Z]{3})/' , $formatted_text , $all_notams_indexes, PREG_OFFSET_CAPTURE);
+		preg_match_all('/([0-9]{6} C[A-Z0-9]{3})/' , $formatted_text , $all_notams_indexes, PREG_OFFSET_CAPTURE);
 		
 		//
 		// Show Wanted Notams
@@ -123,7 +123,7 @@
 			}
 			
 			// Eliminate notams from other airports
-			$this_notam_isGoodAirport = preg_match('/(C[A-Z]{3} [\/\-() A-Z0-9,.]+'.$airport.')/', $this_notam_text);
+			$this_notam_isGoodAirport = preg_match('/(C[A-Z0-9]{3} [\/\-() A-Z0-9,.]+'.$airport.')/', $this_notam_text);
 			
 			// Check if the Notam is actually for the searched airport
 			if($this_notam_isSearched && $this_notam_isGoodAirport)
