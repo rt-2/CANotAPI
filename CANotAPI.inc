@@ -18,12 +18,12 @@
 	//			alternatively change its style with class 'CANotAPI_Footer';
 	//	RETURNS: A string with all relevant notams.
 	//
-	function CANotAPI_GetNotamsString($airport, $search, $showFooter = true)
+	function CANotAPI_GetNotamsString($airport, $search, $showFooter = true, $returnArray = false)
 	{
 		//
 		// Variables
-		//
-		$ret = '';
+		// 
+		$ret = ($returnArray)? [] : '';
 		$fields_string = '';
 		$airport = strtoupper($airport);
 		$time_format = 'ymdHi';
@@ -136,39 +136,51 @@
 					$classes = 'CANotAPI_Notam';
 					preg_match('/[0-9]{10} TIL[ A-Z]+[0-9]{10}/', $this_notam_text, $this_notam_active_text);
 					
-					// Check if Notam contains validity times
-					if(isset( $this_notam_active_text[0] ))
+					if($returnArray === true)
 					{
-						// Variables
-						$this_notam_active_begin = substr($this_notam_active_text[0], 0, 10);
-						$this_notam_active_end = substr($this_notam_active_text[0], -10);
-						
-						// Check if Notam is active, not active, or active soon.
-						if($this_notam_active_begin < $time_now and $time_now < $this_notam_active_end) {
-							// Notam is active
-							$classes .= ' CANotAPI_Notam_active';
-						} elseif ($this_notam_active_begin < $time_soon and $time_soon < $this_notam_active_end) {
-							// Notam is active soon
-							$classes .= ' CANotAPI_Notam_soonActive';
-						} else {
-							// Notam is not active
-							$classes .= ' CANotAPI_Notam_inactive';
-						}
+						$ret[] = $this_notam_text;
 					}
 					else
 					{
-						// Notam has no time specified
-						$classes .= ' CANotAPI_Notam_timeUndef';
+						// Check if Notam contains validity times
+						if(isset( $this_notam_active_text[0] ))
+						{
+							// Variables
+							$this_notam_active_begin = substr($this_notam_active_text[0], 0, 10);
+							$this_notam_active_end = substr($this_notam_active_text[0], -10);
+						
+							{
+								// Check if Notam is active, not active, or active soon.
+								if($this_notam_active_begin < $time_now and $time_now < $this_notam_active_end) {
+									// Notam is active
+									$classes .= ' CANotAPI_Notam_active';
+								} elseif ($this_notam_active_begin < $time_soon and $time_soon < $this_notam_active_end) {
+									// Notam is active soon
+									$classes .= ' CANotAPI_Notam_soonActive';
+								} else {
+									// Notam is not active
+									$classes .= ' CANotAPI_Notam_inactive';
+								}
+						}
+						else
+						{
+							// Notam has no time specified
+							$classes .= ' CANotAPI_Notam_timeUndef';
+						}
+
+						// Add Notam to return string
+						$ret .= '<span class="'.$classes.'">'.$this_notam_text.'</span><br><br>';
 					}
-					
-					// Add Notam to return string
-					$ret .= '<span class="'.$classes.'">'.$this_notam_text.'</span><br><br>';
 				}
 			}
 		}
 		// Add footer
-		if($showFooter) $ret .= '<span class="CANotAPI_Footer"><small>Made possible by <a href="https://github.com/rt-2/CANotAPI" target="_blank">CANotAPI</a> (Canadian Notam API)</small></span><br><br>';
-		// Return string
+		if($showFooter) 
+		if(!$returnArray && $showFooter)
+		{
+			$ret .= '<span class="CANotAPI_Footer"><small>Made possible by <a href="https://github.com/rt-2/CANotAPI" target="_blank">CANotAPI</a> (Canadian Notam API)</small></span><br><br>';
+		}
+		// Return data
 		return $ret;
 	}
 	
