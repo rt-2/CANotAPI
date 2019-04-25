@@ -22,7 +22,7 @@
 	{
 		//
 		// Variables
-		// 
+		//
 		$ret = ($returnArray)? [] : '';
 		$fields_string = '';
 		$airport = strtoupper($airport);
