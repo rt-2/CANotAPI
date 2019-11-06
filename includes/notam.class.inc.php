@@ -17,9 +17,12 @@ class Notam
         if(isset($configArray['airport'])) $this->airport = $configArray['airport'];
         if(isset($configArray['time_from'])) $this->time_from = $configArray['time_from'];
         if(isset($configArray['time_to'])) $this->time_to = $configArray['time_to'];
-        if(isset($configArray['text'])) $this->text = $configArray['text'];
-        if(isset($configArray['time_human'])) $this->text .= ' '.$configArray['time_human'];
+        if(isset($configArray['text'])) trim($this->text = trim($configArray['text']));
+        if(isset($configArray['time_human'])) $this->time_human = trim($configArray['time_human']);
+        if(strlen($this->time_human) > 0) $this->text .= ' '.$this->time_human;
         
+        
+
         $this->text = str_replace ( ',' , '' , $this->text);
         $this->text = str_replace ( '.' , '' , $this->text);
         $this->text = str_replace ( PHP_EOL  , '' , $this->text);
