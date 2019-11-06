@@ -18,8 +18,11 @@ class Notam
         if(isset($configArray['time_from'])) $this->time_from = $configArray['time_from'];
         if(isset($configArray['time_to'])) $this->time_to = $configArray['time_to'];
         if(isset($configArray['text'])) $this->text = $configArray['text'];
-        if(isset($configArray['time_human'])) $this->text .= $configArray['time_human'];
-
+        if(isset($configArray['time_human'])) $this->text .= ' '.$configArray['time_human'];
+        
+        $this->text = str_replace ( ',' , '' , $this->text);
+        $this->text = str_replace ( '.' , '' , $this->text);
+        $this->text = str_replace ( PHP_EOL  , '' , $this->text);
 
 
     }
