@@ -103,6 +103,8 @@
 		
         $all_notams_list = $result_json['data'];
         
+        //echo '<br /><br />';
+        
 
 		foreach($all_notams_list as $notam_data)
 		{
@@ -129,6 +131,11 @@
                 var_dump($matches);
             }
             
+            //echo '<br>';
+            //var_dump($matches['message_en']);
+            //var_dump($matches['message']);
+            
+            //echo '<br>';
 
             $this_notam_obj = New Notam([
                 'ident' => $matches['id'],
@@ -138,10 +145,15 @@
                 'time_human' => $matches['time_human'],
                 'text' => ( isset($matches['message_en']) && strlen($matches['message_en']) > 0 ? $matches['message_en'] : $matches['message'] ),
             ]);
+            //var_dump($search);
+            //var_dump($this_notam_obj);
+            //var_dump($airport);
+            //var_dump($this_notam_obj->GetAirport() === $airport);
             
 
 
 
+            //echo '<br><br>';
 
 
 
@@ -165,6 +177,9 @@
 				}
 			}
             
+            //var_dump($this_notam_obj->GetText());
+            //var_dump($this_notam_isGoodAirport);
+            //var_dump($this_notam_isSearched);
 
 
 			// Check if the Notam is actually for the searched airport
