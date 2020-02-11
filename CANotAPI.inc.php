@@ -24,7 +24,7 @@
 	{
         $result_str = '';
         preg_match_all("/^(?<year>\d{2})(?<month>\d{2})(?<day>\d{2})(?<zulu>\d{4})$/", $date10char, $data);
-        $result_str = '20'.$data[year][0].'-'.$data[month][0].'-'.$data[day][0].' '.$data[zulu][0].'Z';
+        $result_str = '20'.$data['year'][0].'-'.$data['month'][0].'-'.$data['day'][0].' '.$data['zulu'][0].'Z';
         return $result_str;
     }
 
