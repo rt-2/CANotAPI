@@ -119,20 +119,20 @@
         $airportName = $result_json['data'][0]['properties']['displayName'];
         
         $args = [
-			'point' => urlencode($airportGeoPoint[0].','.$airportGeoPoint[1].','.$airport.',site'),
+			'point' => urlencode($airport.'|site|'.$airportGeoPoint[0].','.$airportGeoPoint[1]),
 			'alpha' => urlencode('notam'),
-			'metar_historical_hours' => urlencode('1'),
+			//'metar_historical_hours' => urlencode('1'),
+			'notam_choice' => 'default',
 			'_' => urlencode(time()),
         ];
 		$result = CANotAPI_GetUrlData('https://plan.navcanada.ca/weather/api/alpha/', $args);
 
 		
 		$result_json = json_decode($result, true);
-		
+
         $all_notams_list = $result_json['data'];
 
 
-        
 
 		foreach($all_notams_list as $notam_data)
 		{
@@ -141,11 +141,13 @@
 			$this_notam_isGoodAirport = false;
 
             $this_notam_text = $notam_data['text'];
+			$this_notam_json = json_decode($this_notam_text)->raw;
+
             $regex = "/^\((?<id>\w\d{4}\/\d{2})\X+(?:A\)\s(?<icao>\w{4})\s)(?:B\)\s(?<time_from>\d{10}(?:\w{3})?)\s)(?:C\)\s(?<time_to>\d{10}(?:\w{3})?)\s)(?:D\)\s(?<time_human>\X+)\s)?(?:E\)\s(?:(?:(?<message_en>\X+)\sFR:\s(?<message_fr>\X+)\)$)|(?:(?<message>\X+)\)$)))/mUu";
-            
-            //echo '<br><br>';
-            //var_dump($this_notam_text);
-            preg_match($regex, $this_notam_text, $matches);
+			
+            $regex = "/\\((?<id>[A-Z]\\d{4}\/\d{2})[ \\)\\\\\\/A-Za-z\\n0-9]*A\\) (?<icao>[A-Z]{4}) B\\) (?<time_from>\\d{10}) C\\) (?<time_to>\\d{10})(?<message>\\X+)FR:/";
+			
+            preg_match($regex, $this_notam_json, $matches);
 
 
 
@@ -158,7 +160,7 @@
                 'text' => ( isset($matches['message_en']) && strlen($matches['message_en']) > 0 ? $matches['message_en'] : $matches['message'] ),
             ]);
             
-
+			
 
 
             if($this_notam_obj->GetAirport() === $airport)
